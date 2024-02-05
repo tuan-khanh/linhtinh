@@ -33,13 +33,11 @@ class OrderItem {
   }
 }
 
+const cartStorageKey = "cart";
+
 function loadYourCart() {
-  var jsonString = localStorage.getItem("cart");
-  if (!jsonString) return;
-  var yourCart = new Cart(
-    JSON.parse(jsonString).orderItems,
-    JSON.parse(jsonString).shippingFee || 0
-  );
+  var yourCart = getMyCartFromStorage();
+  const products = loadProductsFromStorage();
   $("#orderItemList").text("");
   $("#cartCountItem").text(yourCart.orderItems.length);
   for (const orderItem of yourCart.orderItems) {
@@ -97,4 +95,12 @@ function getMyCartFromStorage() {
     JSON.parse(jsonString).shippingFee || 0
   );
   return yourCart;
+}
+
+function saveMyCartToStorage(myCart) {
+  localStorage.setItem(cartStorageKey, JSON.stringify(myCart));
+}
+
+function removeMyCartFromStorage() {
+  localStorage.removeItem(cartStorageKey);
 }

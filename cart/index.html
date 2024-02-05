@@ -100,6 +100,13 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>
+                    <a class="dropdown-item fw-bold" type="button">
+                      <i class="bi bi-person-circle"></i>
+                      <span id="currentUser"></span>
+                    </a>
+                  </li>
+
+                  <li>
                     <a
                       class="dropdown-item fw-bold"
                       type="button"
@@ -179,8 +186,7 @@
                       <th scope="col" class="text-end">Price</th>
                     </tr>
                   </thead>
-                  <tbody class="table-group-divider">
-                  </tbody>
+                  <tbody class="table-group-divider"></tbody>
                 </table>
               </div>
             </div>
@@ -207,8 +213,8 @@
               <span id="totalBill"></span>
             </li>
           </ul>
-          <a class="btn btn-dark w-100 btn-lg" href="../index.html">
-            Continue
+          <a class="btn btn-dark w-100 btn-lg" href="../payment/index.html">
+            Continue to payment
           </a>
         </div>
       </div>
@@ -342,6 +348,7 @@
   <script src="../js/header.js"></script>
   <script src="../auth/js/auth.js"></script>
   <script src="../models/product.model.js"></script>
+  <script src="../product-management/js/product.js"></script>
   <script src="./js/cart.js"></script>
   <script src="./js/index.js"></script>
 </html>

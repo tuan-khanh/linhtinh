@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  var products = loadProductsFromStorage();
   loadProducts(products);
   loadYourCart();
 });
@@ -15,13 +16,14 @@ function loadProducts(products) {
             class="card-image-top bg-secondary-subtle p-4"
           />
           <div class="card-body" style="height: 16rem;">
-            <h5 class="card-title line-clamp">${product.line}</h5>
-            <h5 class="card-title line-clamp" style="font-weight: 300;">${product.name}</h5>
+            <h5 class="card-title line-clamp">${product.line}
+              <h5 class="card-title line-clamp" style="font-weight: 300;">${product.name}</h5>
+            </h5>
             <p class="card-text product_desc line-clamp" style="font-size: 14px;">
               ${product.description}
             </p>
             <p class="card-text line-clamp">
-              ₫ ${product.priceString}
+              ₫ ${product.price.toLocaleString("en-US")}
             </p>
             <button class="btn btn-primary" onclick="addToCart(${i})">Add to cart</button>
           </div>

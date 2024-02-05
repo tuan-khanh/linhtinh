@@ -9,6 +9,7 @@ $(document).ready(function () {
 });
 
 function changeMyCart(productId) {
+  var yourCart = getMyCartFromStorage();
   const count = parseInt($(`#countInput${productId}`).val());
   const index = yourCart.orderItems.findIndex((e) => e.productId == productId);
   if (index != -1) {
@@ -21,7 +22,8 @@ function changeMyCart(productId) {
 }
 
 function loadProductTable() {
-  yourCart = getMyCartFromStorage();
+  let yourCart = getMyCartFromStorage();
+  var products = loadProductsFromStorage();
   $("table#orderItemTable tbody").text("");
   let i = 0;
   for (const orderItem of yourCart.orderItems) {
@@ -63,3 +65,30 @@ function loadProductTable() {
 function setTotal(total) {
   $("#totalBill").text("₫ " + total.toLocaleString("en-US"));
 }
+
+const addToCart = function (id) {
+  let yourCart = getMyCartFromStorage();
+  let products = loadProductsFromStorage();
+  if (yourCart.orderItems && yourCart.orderItems.length > 0) {
+    let index = yourCart.orderItems.findIndex((e) => e.productId == id);
+    if (index != -1) {
+      yourCart.orderItems[index].count++;
+    } else {
+      yourCart.orderItems.push({
+        productId: id,
+        price: products[id].price,
+        count: 1,
+      });
+    }
+  } else {
+    yourCart.orderItems = [
+      {
+        productId: id,
+        price: products[id].price,
+        count: 1,
+      },
+    ];
+  }
+  saveMyCartToStorage(yourCart);
+  loadYourCart();
+};
