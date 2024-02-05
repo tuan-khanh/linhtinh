@@ -1,11 +1,16 @@
-let accountList = [
-  {
-    username: "admin",
-    password: "admin",
-  },
-];
-
 const usernameKeyStorage = "user";
+const accountKeyStorage = "accounts";
+
+if (localStorage.getItem(accountKeyStorage)) {
+  var accountList = JSON.parse(localStorage.getItem(accountKeyStorage));
+} else {
+  var accountList = [
+    {
+      username: "admin",
+      password: "admin",
+    },
+  ];
+}
 
 $("document").ready(function () {
   $("#loginButton").on("click", function () {
@@ -106,6 +111,7 @@ $("document").ready(function () {
       }
     } else {
       accountList = [...accountList, { username, password }];
+      localStorage.setItem(accountKeyStorage, JSON.stringify(accountList));
       window.location.href = "./login.html";
     }
   });

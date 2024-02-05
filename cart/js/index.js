@@ -1,23 +1,23 @@
 $(document).ready(function () {
   var yourCart = getMyCartFromStorage();
-  var shippingFee = 0;
   loadProductTable();
-  $("#tempTotal").text("₫ " + calcTotal(yourCart).toLocaleString("en-US"));
-  setTotal($("#tempTotal").text() + shippingFee);
+  $("#tempTotal").text(
+    "₫ " + yourCart.totalWithShippingFee().toLocaleString("en-US")
+  );
+  setTotal(yourCart.totalWithShippingFee());
   loadYourCart();
 });
 
 function changeMyCart(productId) {
-  const count = $(`#countInput${productId}`).val();
+  const count = parseInt($(`#countInput${productId}`).val());
   const index = yourCart.orderItems.findIndex((e) => e.productId == productId);
   if (index != -1) {
     yourCart.orderItems[index].count = count;
   }
   localStorage.setItem("cart", JSON.stringify(yourCart));
-  $("#tempTotal").text("₫ " + calcTotal(yourCart).toLocaleString("en-US"));
+  $("#tempTotal").text("₫ " + yourCart.total.toLocaleString("en-US"));
   loadYourCart();
-  setTotal($("#tempTotal").text() + shippingFee);
-
+  setTotal(yourCart.totalWithShippingFee());
 }
 
 function loadProductTable() {
@@ -32,7 +32,7 @@ function loadProductTable() {
         <th scope="row">${i + 1}</th>
         <td>
           <img
-            src="../assets/images/products/${currentProduct.image}"
+            src="../../assets/images/products/${currentProduct.image}"
             width="100"
             class="card-image-top bg-secondary-subtle p-1"
           />
@@ -56,10 +56,10 @@ function loadProductTable() {
       </tr>
     `;
     i++;
-    $("#orderItemTable").append(text);
+    $("#orderItemTable tbody").append(text);
   }
 }
 
 function setTotal(total) {
-  $("#totalBill").text(total.toLocaleString("en-US"));
+  $("#totalBill").text("₫ " + total.toLocaleString("en-US"));
 }
